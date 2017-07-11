@@ -1,0 +1,27 @@
+{
+  "name": "gftreactworkshop",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "bootstrap": "^3.3.7",
+    "prop-types": "latest",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
+    "react-scripts": "1.0.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eslint": "eslint src/*.js --fix",
+    "eject": "react-scripts eject"
+  }
+}

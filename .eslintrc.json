@@ -1,0 +1,160 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "globalReturn": false,
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      "\\.(json)$",
+      "\\.(gif)$",
+      "\\.(css)$",
+      "\\.(svg)$",
+      "\\.(jpg)$",
+      "\\.(png)$",
+      "\\.(eot)$",
+      "\\.(ttf)$",
+      "\\.(woff)$"
+    ]
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "commonjs": true,
+    "mocha": true,
+    "jasmine": true
+  },
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "rules": {
+    "quotes": [
+      "warn",
+      "double"
+    ],
+    "prefer-arrow-callback": [
+      "warn"
+    ],
+    "prefer-const": [
+      "warn"
+    ],
+    "react/prefer-es6-class": [
+      "error"
+    ],
+    "prefer-template": [
+      "warn"
+    ],
+    "prefer-rest-params": [
+      "warn"
+    ],
+    "prefer-destructuring": [
+      "warn",
+      {
+        "array": true,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": true
+      }
+    ],
+    "no-mixed-spaces-and-tabs": [
+      "warn"
+    ],
+    "no-duplicate-imports": [
+      "warn"
+    ],
+    "arrow-body-style": [
+      2,
+      "as-needed"
+    ],
+    "no-eval": [
+      "error"
+    ],
+    "no-multi-spaces": [
+      "warn"
+    ],
+    "no-irregular-whitespace": 2,
+    "dot-notation": [
+      "warn"
+    ],
+    "no-useless-constructor": [
+      "warn"
+    ],
+    "no-console": 2,
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "semi": [
+      "error"
+    ],
+    "space-in-parens": 1,
+    "comma-dangle": [
+      "error"
+    ],
+    "react/jsx-no-undef": [
+      "warn"
+    ],
+    "react/jsx-handler-names": [
+      "warn"
+    ],
+    "react/jsx-uses-react": [
+      "warn"
+    ],
+    "react/jsx-uses-vars": [
+      "warn"
+    ],
+    "react/no-did-update-set-state": [
+      "warn"
+    ],
+    "react/no-deprecated": [
+      "error"
+    ],
+    "react/no-multi-comp": [
+      "error"
+    ],
+    "react/no-direct-mutation-state": [
+      "error"
+    ],
+    "react/react-in-jsx-scope": [
+      "warn"
+    ],
+    "react/require-default-props": [
+      "warn"
+    ],
+    "react/require-render-return": [
+      "warn"
+    ],
+    "react/sort-prop-types": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "ignoreCase": true
+      }
+    ],
+    "react/prop-types": [
+      "error",
+      {
+        "ignore": [
+          "handleSubmit",
+          "fields",
+          "children"
+        ]
+      }
+    ]
+  }
+}

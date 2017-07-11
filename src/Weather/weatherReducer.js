@@ -12,7 +12,6 @@ const initialState = {
 };
 
 const weather = (state = initialState, action) => {
-    console.log("action came:", action);
     switch (action.type) {
         case weatherActionType.WEATHER_CLEAR:
             return initialState;

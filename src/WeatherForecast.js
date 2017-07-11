@@ -5,17 +5,6 @@ import WeatherCard from "./WeatherCard";
 import {Alert, ProgressBar, Grid, Row, Col} from "react-bootstrap";
 
 class WeatherForecast extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            loading: true,
-            error: false,
-            message: "",
-            city: "",
-            forecast: []
-        };
-    }
-
     componentDidMount() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -43,7 +32,28 @@ class WeatherForecast extends React.Component {
 }
 
 WeatherForecast.propTypes = {
-    loadData: PropTypes.func.isRequired
+    city: PropTypes.string,
+    error: PropTypes.bool,
+    errorData: PropTypes.func.isRequired,
+    forecast: PropTypes.arrayOf(PropTypes.shape({
+        date: PropTypes.number,
+        description: PropTypes.string,
+        humidity: PropTypes.number,
+        icon: PropTypes.string,
+        maxTemp: PropTypes.number,
+        minTemp: PropTypes.number
+    })),
+    loadData: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    message: PropTypes.string
+};
+
+WeatherForecast.defaultProps = {
+    loading:false,
+    city:"No City",
+    error:false,
+    message:"",
+    forecast:[]
 };
 
 export default WeatherForecast;

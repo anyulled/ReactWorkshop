@@ -9,43 +9,35 @@ export const weatherActionType = {
     WEATHER_ERROR: "weather/error"
 };
 
-const clearData = () => {
-    return {
-        type: weatherActionType.WEATHER_CLEAR
-    }
-};
+const clearData = () => ({
+    type: weatherActionType.WEATHER_CLEAR
+});
 
-export const errorData = (error) => {
-    return {
-        type: weatherActionType.WEATHER_ERROR,
-        payload: error
-    }
-};
+export const errorData = (error) => ({
+    type: weatherActionType.WEATHER_ERROR,
+    payload: error
+});
 
-const loadData = (response) => {
-    return {
-        type: weatherActionType.WEATHER_LOAD,
-        payload: {
-            city: response.data.city.name,
-            forecast: response.data.list.map(weather => ({
-                icon: weather.weather[0].icon,
-                date: weather.dt,
-                description: weather.weather[0].description,
-                minTemp: weather.temp.min,
-                maxTemp: weather.temp.max,
-                humidity: weather.humidity
-            }))
-        }
-    };
-};
+const loadData = (response) => ({
+    type: weatherActionType.WEATHER_LOAD,
+    payload: {
+        city: response.data.city.name,
+        forecast: response.data.list.map(weather => ({
+            icon: weather.weather[0].icon,
+            date: weather.dt,
+            description: weather.weather[0].description,
+            minTemp: weather.temp.min,
+            maxTemp: weather.temp.max,
+            humidity: weather.humidity
+        }))
+    }
+});
 
 export function loadWeatherData(latitude, longitude) {
     return (dispatch) => {
-        console.info("clearing data");
         dispatch(clearData());
-        console.info("loading data");
         axios(`http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&lang=es&lat=${latitude}&lon=${longitude}&appid=${WEATHER_API}`).then(
             response => dispatch(loadData(response))
         );
-    }
+    };
 }

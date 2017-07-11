@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Grid, PageHeader, Row, Col, Glyphicon} from "react-bootstrap";
-import WeatherForecast from "./WeatherForecast";
+import WeatherContainer from "./Weather/weatherContainer";
 
 class App extends Component {
     constructor() {
@@ -24,7 +24,7 @@ class App extends Component {
                 <Grid>
                     <Row>
                         <Col sm={12}>
-                            <WeatherForecast modifyCity={this.modifyCity}/>
+                            <WeatherContainer/>
                         </Col>
                     </Row>
                 </Grid>

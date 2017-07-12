@@ -20,10 +20,12 @@ const weather = (state = initialState, action) => {
                 ...state,
                 forecast: action.payload.forecast,
                 city: action.payload.city,
-                loading: false
+                loading: false,
+                error: false,
+                message: ""
             };
         case weatherActionType.WEATHER_ERROR:
-            return {...state, error: true, message: action.payload, forecast: [], city: ""};
+            return {...state, error: true, message: action.payload, forecast: [], city: "", loading: false};
         default:
             return state;
     }

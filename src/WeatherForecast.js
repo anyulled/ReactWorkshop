@@ -26,7 +26,7 @@ class WeatherForecast extends React.Component {
             <LoadingComponent/>
             {forecast.length > 0 && <Grid><Row>{forecast.map((date, index) => (
                 <Col key={index} sm={index === 0 ? 6 : 3}><WeatherCard weather={date}/></Col>))}</Row></Grid>}
-            {error && this.state.message && <Alert bsStyle="danger">{message}</Alert>}
+            {error && message && <Alert bsStyle="danger">{message}</Alert>}
         </div>);
     }
 }

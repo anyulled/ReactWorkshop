@@ -35,7 +35,7 @@ WeatherCard.propTypes = {
 WeatherCard.defaultProps = {
     weather: {
         icon: "",
-        date: new Date(),
+        date: new Date().getUTCMilliseconds(),
         description: "no description available",
         minTemp: 0,
         maxTemp: 99,

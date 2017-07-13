@@ -4,5 +4,10 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="assert-equal-jsx-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="expect-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jest-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="node-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jsdom-DefinitelyTyped" level="application" />
   </component>
 </module>

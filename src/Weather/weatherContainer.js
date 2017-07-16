@@ -22,4 +22,5 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeatherForeCast);
+const WeatherContainer = connect(mapStateToProps, mapDispatchToProps)(WeatherForeCast);
+export default WeatherContainer;

@@ -5,14 +5,6 @@ import {mount} from "enzyme";
 import WeatherForecast from "./WeatherForecast";
 import React from "react";
 
-import jsdom from 'jsdom';
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.document = doc;
-global.window = doc.defaultView;
-global.navigator = {
-    userAgent: 'node.js'
-};
-
 describe("WeatherForecast", () => {
     it("should render properly", () => {
         const props = {

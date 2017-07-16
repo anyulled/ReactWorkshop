@@ -5,10 +5,6 @@ import React from "react";
 import {shallow, mount} from "enzyme";
 import WeatherCard from "./WeatherCard";
 import {Panel} from "react-bootstrap";
-import jsdom from 'jsdom';
-const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.document = doc;
-global.window = doc.defaultView;
 
 describe("WeatherCard", () => {
     const props = {
@@ -32,4 +28,3 @@ describe("WeatherCard", () => {
         expect(wrapper.find("p").length).toEqual(4);
     });
 });
-

@@ -12,11 +12,15 @@ class Statistics extends React.Component {
     }
 }
 Statistics.propTypes = {
+    error: PropTypes.bool,
+    loading: PropTypes.bool,
     rainyDays: PropTypes.number,
     sunnyDays: PropTypes.number
 };
 
 Statistics.defaultProps = {
+    error: false,
+    loading: false,
     rainyDays: 0,
     sunnyDays: 0
 };

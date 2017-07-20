@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Grid, Row, Col} from "react-bootstrap";
-import WeatherContainer from "./Weather/weatherContainer";
-import HeaderContainer from "./Weather/HeaderContainer";
-import StatisticsContainer from "./Weather/statisticsContainer";
+import WeatherContainer from "../container/WeatherContainer";
+import HeaderContainer from "../container/HeaderContainer";
+import StatisticsContainer from "../container/StatisticsContainer";
 
 class App extends Component {
     render() {

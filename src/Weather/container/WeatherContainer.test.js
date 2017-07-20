@@ -6,10 +6,10 @@ import {Provider} from "react-redux";
 import {mount} from "enzyme";
 import {createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
-import reducer from "./weatherReducer";
+import reducer from "../store/weatherReducer";
 
-import WeatherContainer from "./weatherContainer";
-import WeatherForeCast from "../WeatherForecast";
+import WeatherContainer from "./WeatherContainer";
+import WeatherForeCast from "../components/WeatherForecast";
 
 describe("Weather Container", () => {
     let WrapperComponent,

@@ -2,8 +2,8 @@
  * Created by alrs on 11/07/2017.
  */
 import {connect} from "react-redux";
-import {loadWeatherData, errorData} from "./weatherActions";
-import WeatherForeCast from "../WeatherForecast";
+import {loadWeatherData, errorData} from "../store/weatherActions";
+import WeatherForeCast from "../components/WeatherForecast";
 
 const mapStateToProps = state => ({
     city: state.city,

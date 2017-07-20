@@ -225,7 +225,7 @@ describe.skip("async actions", () => {
         const middlewares = [thunk];
         const mockStore = configureMockStore(middlewares);
         const store = mockStore({state: {}});
-        console.log("::: Load weather data :::", store.dispatch(loadWeatherData(39.4711056, -0.3769074)));
+        //console.log("::: Load weather data :::", store.dispatch(loadWeatherData(39.4711056, -0.3769074)));
         return store.dispatch(loadWeatherData(39.4711056, -0.3769074)).then(() => {
             expect(store.getActions()).toEqual(expextedActions);
         });

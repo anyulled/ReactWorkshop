@@ -42,7 +42,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "enzyme": "latest",
+    "enzyme": "^2.9.1",
     "eslint": "^4.2.0",
     "eslint-config-react-app": "^1.0.5",
     "eslint-loader": "1.7.1",

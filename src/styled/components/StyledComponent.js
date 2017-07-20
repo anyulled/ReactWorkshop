@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import styled from "styled-components";
 
-const randomColor = () =>`#${Math.random().toString(16).substr(-6)}`;
+const randomColor = () => `#${Math.random().toString(16).substr(-6)}`;
 
 const Card = styled.div`
   padding: 20px;
@@ -25,7 +25,7 @@ class StyledComponent extends Component {
     }
 
     render() {
-        const {state:{color}} = this;
+        const {state: {color}} = this;
         return (
             <Container>
                 <Card color={color}>

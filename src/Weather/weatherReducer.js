@@ -1,8 +1,17 @@
+import type {Action} from "./weatherActions";
 /**
  * Created by alrs on 11/07/2017.
  */
+//@flow
 import {weatherActionType} from "./weatherActions";
 
+type state = {
+    loading: boolean,
+    error: boolean,
+    message: string,
+    city: string,
+    forecast: Array<mixed>
+};
 const initialState = {
     loading: true,
     error: false,
@@ -11,7 +20,7 @@ const initialState = {
     forecast: []
 };
 
-const weather = (state = initialState, action) => {
+const weather = (state: state = initialState, action: Action) => {
     switch (action.type) {
         case weatherActionType.WEATHER_CLEAR:
             return initialState;

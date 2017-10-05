@@ -12,7 +12,6 @@ type State = {
     +forecast: Array<mixed>
 };
 
-
 const initialState = {
     loading: true,
     error: false,

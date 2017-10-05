@@ -1,15 +1,27 @@
+// @flow
 /**
  * Created by anyulled on 10/7/17.
  */
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {Panel} from "react-bootstrap";
 
-class WeatherCard extends React.Component {
-    render() {
+type Props = {
+    +weather: {
+        icon: string,
+        date: number,
+        description: string,
+        minTemp: number,
+        maxTemp: number,
+        humidity: number
+    }
+};
+
+class WeatherCard extends React.Component<Props, *> {
+    render(): React.Node {
         const {props: {weather}} = this;
-        const date = new Date(weather.date * 1000);
-        const title = (<span>
+        const date: Date = new Date(weather.date * 1000);
+        const title: React.Node = (<span>
             <img alt="forecast" height="32" src={`http://openweathermap.org/img/w/${weather.icon}.png`}/>
             {`${date.toLocaleDateString()}`}</span>);
         return (<Panel header={title} bsStyle="info">
@@ -20,6 +32,17 @@ class WeatherCard extends React.Component {
         </Panel>);
     }
 }
+
+// WeatherCard.defaultProps = {
+//     weather: {
+//         icon: "",
+//         date: new Date().getUTCMilliseconds(),
+//         description: "no description available",
+//         minTemp: 0,
+//         maxTemp: 99,
+//         humidity: 50
+//     }
+// };
 
 WeatherCard.propTypes = {
     weather: PropTypes.shape({
@@ -32,15 +55,5 @@ WeatherCard.propTypes = {
     }).isRequired
 };
 
-WeatherCard.defaultProps = {
-    weather: {
-        icon: "",
-        date: new Date().getUTCMilliseconds(),
-        description: "no description available",
-        minTemp: 0,
-        maxTemp: 99,
-        humidity: 50
-    }
-};
 
 export default WeatherCard;

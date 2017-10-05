@@ -1,11 +1,12 @@
 /**
  * Created by alrs on 11/07/2017.
  */
+// @flow
 import {connect} from "react-redux";
-import {loadWeatherData, errorData} from "../store/weatherActions";
+import {errorData, loadWeatherData} from "../store/weatherActions";
 import WeatherForeCast from "../components/WeatherForecast";
 
-const mapStateToProps = state => ({
+const mapStateToProps: Object = state => ({
     city: state.city,
     forecast: state.forecast,
     error: state.error,
@@ -13,14 +14,14 @@ const mapStateToProps = state => ({
     message: state.message
 });
 
-const mapDispatchToProps = dispatch => ({
-    errorData: (error) => {
+const mapDispatchToProps: Function = (dispatch: Function) => ({
+    errorData: (error: Object) => {
         dispatch(errorData(error));
     },
-    loadData: (latitude, longitude) => {
+    loadData: (latitude: number, longitude: number) => {
         dispatch(loadWeatherData(latitude, longitude));
     }
 });
 
-const WeatherContainer = connect(mapStateToProps, mapDispatchToProps)(WeatherForeCast);
+const WeatherContainer:Function = connect(mapStateToProps, mapDispatchToProps)(WeatherForeCast);
 export default WeatherContainer;

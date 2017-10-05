@@ -1,7 +1,8 @@
-import React from "react";
+// @flow
+import * as React from "react";
 import {Nav, Navbar, NavItem} from "react-bootstrap";
-class Navigation extends React.PureComponent {
-    render() {
+class Navigation extends React.PureComponent<{}> {
+    render(): React.Node {
         return (<Navbar>
             <Navbar.Header>
                 <Navbar.Brand>

@@ -1,11 +1,12 @@
-import React, {Component} from "react";
-import {Grid, Row, Col} from "react-bootstrap";
+// @flow
+import * as React from "react";
+import {Col, Grid, Row} from "react-bootstrap";
 import WeatherContainer from "../container/WeatherContainer";
 import HeaderContainer from "../container/HeaderContainer";
 import StatisticsContainer from "../container/StatisticsContainer";
 
-class App extends Component {
-    render() {
+class App extends React.Component<{}> {
+    render(): React.Node {
         return (
             <div>
                 <HeaderContainer/>

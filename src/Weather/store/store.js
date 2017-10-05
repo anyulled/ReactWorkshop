@@ -1,3 +1,4 @@
+// @flow
 /**
  * Created by alrs on 11/07/2017.
  */

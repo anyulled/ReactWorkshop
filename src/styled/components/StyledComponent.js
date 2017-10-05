@@ -1,7 +1,8 @@
-import React, {Component} from "react";
+//@flow
+import * as React from "react";
 import styled from "styled-components";
 
-const randomColor = () => `#${Math.random().toString(16).substr(-6)}`;
+const randomColor = (): string => `#${Math.random().toString(16).substr(-6)}`;
 
 const Card = styled.div`
   padding: 20px;
@@ -13,18 +14,18 @@ const Container = styled.div`
   padding: 20px
 `;
 
-class StyledComponent extends Component {
+class StyledComponent extends React.Component<{}, { color: string }> {
     constructor() {
         super();
         this.state = {color: "skyblue"};
         this.handleRandomizeColor = this.handleRandomizeColor.bind(this);
     }
 
-    handleRandomizeColor() {
+    handleRandomizeColor = (): void => {
         this.setState({color: randomColor()});
-    }
+    };
 
-    render() {
+    render(): React.Node {
         const {state: {color}} = this;
         return (
             <Container>

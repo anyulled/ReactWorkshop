@@ -1,0 +1,11 @@
+[ignore]
+
+[include]
+
+[libs]
+./node_modules/*
+[lints]
+
+[options]
+module.ignore_non_literal_requires=true
+suppress_type=$FlowIssue

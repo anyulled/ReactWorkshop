@@ -1,7 +1,7 @@
 /**
  * Created by anyulled on 11/7/17.
  */
-import {weatherActionType, loadWeatherData, errorData} from "./weatherActions";
+import {weatherActionTypes, loadWeatherData, errorData} from "./weatherActions";
 import nock from "nock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -12,7 +12,7 @@ describe('actions', () => {
     it('should create an action to display an error message', () => {
         const text = 'Error Message';
         const expectedAction = {
-            type: weatherActionType.WEATHER_ERROR,
+            type: weatherActionTypes.WEATHER_ERROR,
             payload: text
         };
         expect(errorData(text)).toEqual(expectedAction);
@@ -219,8 +219,8 @@ describe.skip("async actions", () => {
 
          });*/
         const expextedActions = [
-            {type: weatherActionType.WEATHER_CLEAR},
-            {type: weatherActionType.WEATHER_LOAD, body: {humidity: 50}}
+            {type: weatherActionTypes.WEATHER_CLEAR},
+            {type: weatherActionTypes.WEATHER_LOAD, body: {humidity: 50}}
         ];
         const middlewares = [thunk];
         const mockStore = configureMockStore(middlewares);

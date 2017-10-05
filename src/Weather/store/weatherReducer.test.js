@@ -2,7 +2,7 @@
  * Created by anyulled on 11/7/17.
  */
 import weather from "./weatherReducer";
-import {weatherActionType} from "./weatherActions";
+import {weatherActionTypes} from "./weatherActions";
 
 describe("weather reducer", () => {
     const initialState = {
@@ -18,18 +18,18 @@ describe("weather reducer", () => {
     });
     it("should handle CLEAR WEATHER", () => {
         expect(weather({}, {
-            type: weatherActionType.WEATHER_CLEAR
+            type: weatherActionTypes.WEATHER_CLEAR
         })).toEqual(initialState);
     });
     it("should handle ERROR WEATHER", () => {
         expect(weather({}, {
-            type: weatherActionType.WEATHER_ERROR,
+            type: weatherActionTypes.WEATHER_ERROR,
             payload: "error message"
         })).toEqual({...initialState, message: "error message", error: true, loading: false});
     });
     it("should handle LOAD WEATHER", () => {
         expect(weather({}, {
-            type: weatherActionType.WEATHER_LOAD,
+            type: weatherActionTypes.WEATHER_LOAD,
             payload: {
                 forecast: [1, 2, 3, 4, 5],
                 city: "Valencia",

@@ -1,30 +1,23 @@
-import type {Action} from "./weatherActions";
-// @flow
+//@flow
 /**
  * Created by alrs on 11/07/2017.
  */
-import {weatherActionTypes, ForecastDetail} from "./weatherActions";
+import type {State} from "../../types";
+import {weatherActionTypes} from "./weatherActions";
 
-type State = {
-    +loading: boolean,
-    +error: boolean,
-    +message: string,
-    +city: string,
-    +forecast: Array<ForecastDetail>
-};
-
-const initialState = {
+const initialState: State = {
     loading: true,
     error: false,
     message: "",
     city: "",
     forecast: []
 };
+type weatherAction = { type: string, payload: { city: string, forecast: Array<any> } };
 
-const weather = (state: State = initialState, action: Action): State => {
+const weather = (state: State = initialState, action: weatherAction): State => {
     switch (action.type) {
         case weatherActionTypes.WEATHER_CLEAR:
-            return initialState;
+            return state;
         case weatherActionTypes.WEATHER_LOAD:
             return {
                 ...state,
@@ -35,7 +28,14 @@ const weather = (state: State = initialState, action: Action): State => {
                 message: ""
             };
         case weatherActionTypes.WEATHER_ERROR:
-            return {...state, error: true, message: action.payload, forecast: [], city: "", loading: false};
+            return {
+                ...state,
+                forecast: [],
+                city: "",
+                loading: false,
+                error: false,
+                message: ""
+            };
         default:
             return state;
     }

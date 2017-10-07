@@ -1,40 +1,18 @@
-// @flow
+//@flow
 /**
  * Created by alrs on 11/07/2017.
  */
 import axios from "axios";
+import type {ActionType, ClearAction, ErrorAction, LoadAction, ThunkAction, WeatherResponse} from "../../types";
 
-type ActionType<T, K> = { [T]: K };
-
+const WEATHER_API: string = "bfc079575bff7ec0b8e4a53770e35ec7";
 export const weatherActionTypes: ActionType<string, string> = {
     WEATHER_CLEAR: "weather/clear",
     WEATHER_LOAD: "weather/load",
     WEATHER_ERROR: "weather/error"
 };
 
-export type ClearAction = {|+type: string|};
-export type LoadAction = {|+type: string, +payload?: ForecastType|};
-export type ErrorAction = { +type: string, +payload?: string };
-export type Action = ClearAction | LoadAction | ErrorAction;
-export type State = Array<mixed>;
-export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-export type PromiseAction = Promise<Action>;
-export type GetState = () => State;
-export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
-export type ForecastDetail = {
-    icon: string,
-    date: Date,
-    description: string,
-    minTemp: number,
-    maxTemp: number,
-    humidity: number
-};
-type ForecastType = {
-    city: string,
-    forecast: Array<ForecastDetail>
-};
-
-const WEATHER_API: string = "bfc079575bff7ec0b8e4a53770e35ec7";
+//export type ActionType = $Keys<typeof weatherActionTypes>;
 
 const clearData = (): ClearAction => ({
     type: weatherActionTypes.WEATHER_CLEAR
@@ -45,7 +23,7 @@ export const errorData = (error: string): ErrorAction => ({
     payload: error
 });
 
-const loadData = (response: Object): Action => ({
+const loadData = (response: WeatherResponse): LoadAction => ({
     type: weatherActionTypes.WEATHER_LOAD,
     payload: {
         city: response.data.city.name,

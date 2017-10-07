@@ -1,11 +1,29 @@
-import React from "react";
+//@flow
+import * as React from "react";
 import PropTypes from "prop-types";
 
 import WeatherCard from "./WeatherCard";
-import {Alert, ProgressBar, Grid, Row, Col} from "react-bootstrap";
+import {Alert, Col, Grid, ProgressBar, Row} from "react-bootstrap";
 
-class WeatherForecast extends React.Component {
-    componentDidMount() {
+type Props = {
+    +errorData: (message: string) => mixed,
+    +loadData: (latitude: number, longitude: number) => mixed,
+    +loading: boolean,
+    +message: string,
+    +error: boolean,
+    +city: string,
+    +forecast: Array<{
+        icon: string,
+        date: number,
+        description: string,
+        minTemp: number,
+        maxTemp: number,
+        humidity: number
+    }>
+};
+
+class WeatherForecast extends React.Component<Props> {
+    componentDidMount(): void {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 this.props.loadData(position.coords.latitude, position.coords.longitude);
@@ -17,9 +35,9 @@ class WeatherForecast extends React.Component {
         }
     }
 
-    render() {
+    render(): React.Node {
         const {props: {loading, city, forecast, error, message}} = this;
-        const LoadingComponent = () => loading ? <ProgressBar active now={100}/> : <h1>City
+        const LoadingComponent = (): React.Node => loading ? <ProgressBar active now={100}/> : <h1>City
             <small>{city}</small>
         </h1>;
         return (<div>
@@ -48,13 +66,13 @@ WeatherForecast.propTypes = {
     message: PropTypes.string
 };
 
-WeatherForecast.defaultProps = {
+/*WeatherForecast.defaultProps = {
     loading:false,
     city:"No City",
     error:false,
     message:"",
     forecast:[]
-};
+};*/
 
 export default WeatherForecast;
 

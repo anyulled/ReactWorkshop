@@ -15,7 +15,7 @@ const mapStateToProps: Object = state => ({
 });
 
 const mapDispatchToProps: Function = (dispatch: Function) => ({
-    errorData: (error: Object) => {
+    errorData: (error: string) => {
         dispatch(errorData(error));
     },
     loadData: (latitude: number, longitude: number) => {

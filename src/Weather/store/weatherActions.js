@@ -7,11 +7,15 @@ const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";
 export const weatherActionType = {
     WEATHER_CLEAR: "weather/clear",
     WEATHER_LOAD: "weather/load",
-    WEATHER_ERROR: "weather/error"
+    WEATHER_ERROR: "weather/error",
+    WEATHER_LOADED: "weather/loaded"
 };
 
 const clearData = () => ({
     type: weatherActionType.WEATHER_CLEAR
+});
+export const loadedData = () => ({
+    type: weatherActionType.WEATHER_LOADED
 });
 
 export const errorData = (error) => ({
@@ -19,7 +23,7 @@ export const errorData = (error) => ({
     payload: error
 });
 
-const loadData = (response) => ({
+export const loadData = (response) => ({
     type: weatherActionType.WEATHER_LOAD,
     payload: {
         city: response.data.city.name,

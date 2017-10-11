@@ -1,7 +1,7 @@
 /**
  * Created by anyulled on 11/7/17.
  */
-import {weatherActionType, loadWeatherData, errorData} from "./weatherActions";
+import {weatherActionType, loadWeatherDataByLatLong, errorData} from "./weatherActions";
 import nock from "nock";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
@@ -225,8 +225,8 @@ describe.skip("async actions", () => {
         const middlewares = [thunk];
         const mockStore = configureMockStore(middlewares);
         const store = mockStore({state: {}});
-        //console.log("::: Load weather data :::", store.dispatch(loadWeatherData(39.4711056, -0.3769074)));
-        return store.dispatch(loadWeatherData(39.4711056, -0.3769074)).then(() => {
+        //console.log("::: Load weather data :::", store.dispatch(loadWeatherDataByLatLong(39.4711056, -0.3769074)));
+        return store.dispatch(loadWeatherDataByLatLong(39.4711056, -0.3769074)).then(() => {
             expect(store.getActions()).toEqual(expextedActions);
         });
     });

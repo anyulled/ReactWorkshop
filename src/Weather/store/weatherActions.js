@@ -27,6 +27,7 @@ export const loadData = (response) => ({
     type: weatherActionType.WEATHER_LOAD,
     payload: {
         city: response.data.city.name,
+        country: response.data.city.country,
         forecast: response.data.list.map(weather => ({
             icon: weather.weather[0].icon,
             date: weather.dt,
@@ -38,10 +39,36 @@ export const loadData = (response) => ({
     }
 });
 
-export function loadWeatherData(latitude, longitude) {
+export function loadWeatherDataByLatLong(latitude, longitude) {
     return (dispatch) => {
-        dispatch(clearData());
-        axios(`http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&lang=es&lat=${latitude}&lon=${longitude}&appid=${WEATHER_API}`)
+        // dispatch(clearData());
+        axios("http://api.openweathermap.org/data/2.5/forecast/daily",
+            {
+                params:
+                    {
+                        units: "metric",
+                        lang: "es",
+                        lat: latitude,
+                        lon: longitude,
+                        appid: WEATHER_API
+                    }
+            })
+            .then(response => dispatch(loadData(response)))
+            .catch(error => dispatch(errorData(error.message)));
+    };
+}
+
+export function loadWeatherDataByCityID(cityId) {
+    return (dispatch) => {
+        //dispatch(clearData());
+        axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
+            params: {
+                units: "metric",
+                lang: "es",
+                id: cityId,
+                appid: WEATHER_API
+            }
+        })
             .then(response => dispatch(loadData(response)))
             .catch(error => dispatch(errorData(error.message)));
     };

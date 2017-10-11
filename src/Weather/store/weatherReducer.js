@@ -8,6 +8,7 @@ const initialState = {
     error: false,
     message: "",
     city: "",
+    country: "",
     forecast: []
 };
 
@@ -20,6 +21,7 @@ const weather = (state = initialState, action) => {
                 ...state,
                 forecast: action.payload.forecast,
                 city: action.payload.city,
+                country: action.payload.country,
                 loading: false,
                 error: false,
                 message: ""

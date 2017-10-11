@@ -2,11 +2,12 @@
  * Created by alrs on 11/07/2017.
  */
 import {connect} from "react-redux";
-import {clearData, errorData, loadWeatherData} from "../store/weatherActions";
+import {clearData, errorData, loadWeatherDataByCityID, loadWeatherDataByLatLong} from "../store/weatherActions";
 import WeatherForeCast from "../components/WeatherForecast";
 
 const mapStateToProps = state => ({
     city: state.city,
+    country: state.country,
     forecast: state.forecast,
     error: state.error,
     loading: state.loading,
@@ -18,9 +19,12 @@ const mapDispatchToProps = dispatch => ({
         dispatch(errorData(error));
     },
     loadData: (latitude, longitude) => {
-        dispatch(loadWeatherData(latitude, longitude));
+        dispatch(loadWeatherDataByLatLong(latitude, longitude));
     },
-    clearData: () => dispatch(clearData())
+    clearData: () => dispatch(clearData()),
+    loadDataByCityId: (cityId) => {
+        dispatch(loadWeatherDataByCityID(cityId));
+    }
 });
 
 const WeatherContainer = connect(mapStateToProps, mapDispatchToProps)(WeatherForeCast);

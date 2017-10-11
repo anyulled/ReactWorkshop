@@ -9,7 +9,7 @@ import weatherReducer from "./weatherReducer";
 import {rootEpic} from "./epics/rootEpic";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger({collapsed: true});
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
 export default createStore(weatherReducer, composeEnhancers(applyMiddleware(thunkMiddleware, epicMiddleware, loggerMiddleware)));

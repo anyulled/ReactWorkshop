@@ -33,7 +33,7 @@ class WeatherForecast extends React.Component {
     }
 
     render() {
-        const {props: {loading, city, country, forecast, error, message, clearData}, onChangeHandler} = this;
+        const {props: {loading, city, country, forecast, error, message, clearData}, onChangeHandler, currentLocationLoad} = this;
         const LoadingComponent = () => loading ? <ProgressBar active now={100}/> : <h1>City
             <small>{city}, {country}</small>
         </h1>;
@@ -43,7 +43,7 @@ class WeatherForecast extends React.Component {
                 <Row>
                     <Col xs={5}>
                         <Button bsStyle="primary" type="button" onClick={clearData}>Clear data</Button>
-                        <Button bsStyle="info" type="button" onClick={clearData}>Current Location data</Button>
+                        <Button bsStyle="info" type="button" onClick={currentLocationLoad}>Current Location data</Button>
                     </Col>
                     <Col xs={7}>
                         <Form horizontal>

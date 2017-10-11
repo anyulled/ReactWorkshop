@@ -11,7 +11,7 @@ export const weatherActionType = {
     WEATHER_LOADED: "weather/loaded"
 };
 
-const clearData = () => ({
+export const clearData = () => ({
     type: weatherActionType.WEATHER_CLEAR
 });
 export const loadedData = () => ({

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, PageHeader, Row, Col, Glyphicon} from "react-bootstrap";
+import {Col, Glyphicon, Grid, PageHeader, Row} from "react-bootstrap";
 import WeatherForecast from "./WeatherForecast";
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <PageHeader><Glyphicon glyph="grain"/> {this.state.city || "Weather App"  }</PageHeader>
+                <PageHeader><Glyphicon glyph="grain"/> {this.state.city || "Weather App"}</PageHeader>
                 <Grid>
                     <Row>
                         <Col sm={12}>

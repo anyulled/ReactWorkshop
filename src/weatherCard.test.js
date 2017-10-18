@@ -1,11 +1,13 @@
 import WeatherCard from "./WeatherCard";
-import React from "react"
-import {shallow} from "enzyme";
-import {configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import React from "react";
+import {configure, shallow} from "enzyme";
+import Adapter from "enzyme-adapter-react-15";
 
 describe("WeatherCard", () => {
-    configure({adapter: new Adapter()});
+    beforeAll(() => {
+        configure({adapter: new Adapter()});
+
+    });
     it("Should mount correctly", () => {
         const props = {
             weather: {

@@ -5,22 +5,29 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
     "prop-types": "latest",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.9.0",
     "eslint": "^4.2.0",
     "eslint-plugin-import": "^2.7.0",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
-    "react-scripts": "1.0.10"
+    "jsdom": "latest",
+    "react-scripts": "1.0.10",
+    "react-test-renderer": "^15.6.2",
+    "sinon": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:coverage": "react-scripts test --env=jsdom --coverage",
     "eslint": "eslint src/*.js --fix",
     "eject": "react-scripts eject"
   }

@@ -55,11 +55,9 @@ class WeatherForecast extends React.Component {
         this.setState({loading: true});
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-                console.log("== GEOLOCATION ENABLED");
                 this.loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
                 this.setState({selectedCityId: "", loading: false});
             }, error => {
-                console.log("== GEOLOCATION ERROR");
                 this.setState({
                     loading: false,
                     error: true,
@@ -67,10 +65,9 @@ class WeatherForecast extends React.Component {
                 });
             });
         } else {
-            console.log("== GEOLOCATION DISABLED");
             this.setState({
                 error: true,
-                message: "Geolocation disabled"
+                message: "Geo location disabled"
             });
         }
     }

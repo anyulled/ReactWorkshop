@@ -231,11 +231,26 @@ describe("weather forecast", () => {
         }, 50);
     });
 
+    it("should display an error message when load by id fails", (done) => {
+        mock.reset();
+        mock
+            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
+            .replyOnce(500, {message: "Test"});
+        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
+        const event = {target: {name: "", value: 360630}};
+        wrapper.find("#citySelect").simulate("change", event);
+        setTimeout(() => {
+            expect(wrapper.state("error")).toBe(true);
+            expect(wrapper.state("message")).toContain("Request failed with status code 500");
+            done();
+        }, 500);
+    });
+
     it("should display an error message, when Weather API fails", (done) => {
         mock.reset();
         mock
             .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
-            .reply(500, {message: "Test"});
+            .replyOnce(500, {message: "Test"});
         const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
         wrapper.instance().loadCityByCoordinates(0, 0);
         setTimeout(() => {

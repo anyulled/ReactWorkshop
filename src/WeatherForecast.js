@@ -16,7 +16,6 @@ import {
     Row
 } from "react-bootstrap";
 
-
 const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";
 
 class WeatherForecast extends React.Component {

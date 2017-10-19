@@ -98,6 +98,7 @@ class WeatherForecast extends React.Component {
             })
             .catch(error => {
                 this.setState({
+                    loading: false,
                     error: true,
                     message: error.message
                 });

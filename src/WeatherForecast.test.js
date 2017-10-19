@@ -2,9 +2,9 @@ import WeatherForecast from "./WeatherForecast";
 import {configure, shallow} from "enzyme";
 import sinon from "sinon";
 import React from "react";
-import Adapter from "enzyme-adapter-react-15";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import Adapter from "enzyme-adapter-react-15";
 
 describe("weather forecast", () => {
     const serviceResponse = {
@@ -198,32 +198,51 @@ describe("weather forecast", () => {
     };
     const modifyCity = sinon.spy();
     const mock = new MockAdapter(axios);
+
     beforeAll(() => {
-        console.info(":: Configuring ::");
         configure({adapter: new Adapter()});
+        mock
+            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
+            .reply(200, serviceResponse);
     });
 
     it("should mount correctly", () => {
         const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        expect(wrapper.find("LoadingComponent").length).toBe(1);
+        expect(wrapper.find("Grid").length).toBe(1);
     });
 
-    it("should load a city by id", async () => {
-        mock
-            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
-            .reply(200, serviceResponse);
+    it("should load a city by id", (done) => {
         const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
         const event = {target: {name: "", value: 360630}};
         wrapper.find("#citySelect").simulate("change", event);
-        expect(wrapper.state("selectedCityId")).toBe(360630);
-        console.log("::STATE ::", wrapper.state());
-        await expect(wrapper.state("forecast").length).toBe(7);
-        done();
+        setTimeout(() => {
+            expect(wrapper.state("selectedCityId")).toBe(360630);
+            expect(wrapper.state("forecast").length).toEqual(7);
+            done();
+        }, 50);
     });
 
-    it("should display a given number of cards, given a data response from weather API", () => {
+    it("should display a set of forecast cards, given lat long API request", (done) => {
         const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        wrapper.instance().processResponse(serviceResponse);
-        expect(wrapper.state("forecast").length).toBe(7);
+        wrapper.instance().loadCityByCoordinates(0, 0);
+        setTimeout(() => {
+            expect(wrapper.state("forecast").length).toBe(7);
+            done();
+        }, 50);
     });
+
+    it("should display a set of forecast cards, given lat long API request (2)", (done) => {
+        mock.reset();
+        mock
+            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
+            .reply(500, {message: "Test"});
+        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
+        wrapper.instance().loadCityByCoordinates(0, 0);
+        setTimeout(() => {
+            expect(wrapper.state("error")).toBe(true);
+            expect(wrapper.state("message")).toContain("Request failed with status code 500");
+            done();
+        }, 50);
+    });
+
 });

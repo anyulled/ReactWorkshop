@@ -231,7 +231,7 @@ describe("weather forecast", () => {
         }, 50);
     });
 
-    it("should display a set of forecast cards, given lat long API request (2)", (done) => {
+    it("should display an error message, when Weather API fails", (done) => {
         mock.reset();
         mock
             .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")

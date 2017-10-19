@@ -1,25 +1,10 @@
 import React from "react";
 import App from "./App";
-
 import {configure, mount, render, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-15";
 
 describe("App", () => {
     beforeAll(() => {
-        const jsdom = require("jsdom").jsdom;
-        const exposedProperties = ["window", "navigator", "document"];
-        global.document = jsdom("");
-        global.window = document.defaultView;
-        Object.keys(document.defaultView).forEach((property) => {
-            if (typeof global[property] === "undefined") {
-                exposedProperties.push(property);
-                global[property] = document.defaultView[property];
-            }
-        });
-        global.navigator = {
-            userAgent: "node.js"
-        };
-
         configure({adapter: new Adapter()});
     });
 

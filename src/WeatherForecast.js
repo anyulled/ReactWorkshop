@@ -55,9 +55,11 @@ class WeatherForecast extends React.Component {
         this.setState({loading: true});
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
+                console.log("== GEOLOCATION ENABLED");
                 this.loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
                 this.setState({selectedCityId: "", loading: false});
             }, error => {
+                console.log("== GEOLOCATION ERROR");
                 this.setState({
                     loading: false,
                     error: true,
@@ -65,6 +67,7 @@ class WeatherForecast extends React.Component {
                 });
             });
         } else {
+            console.log("== GEOLOCATION DISABLED");
             this.setState({
                 error: true,
                 message: "Geolocation disabled"
@@ -158,7 +161,7 @@ class WeatherForecast extends React.Component {
                             <FormGroup controlId="formControlsSelect">
                                 <Col xs={3}><ControlLabel>Select City</ControlLabel></Col>
                                 <Col xs={9}>
-                                    <FormControl componentClass="select" placeholder="select"
+                                    <FormControl id="citySelect" componentClass="select" placeholder="select"
                                                  value={this.state.selectedCityId}
                                                  onChange={onChangeHandler}>
                                         <option value="">Select</option>

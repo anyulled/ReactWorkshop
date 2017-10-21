@@ -10,21 +10,20 @@ describe("WeatherCard", () => {
     });
     it("Should mount correctly", () => {
         const props = {
-            weather: {
-                icon: "",
-                date: new Date(),
-                description: "sunny",
-                minTemp: 0,
-                maxTemp: 99,
-                humidity: 50
-            }
+            icon: "",
+            date: new Date(),
+            description: "sunny",
+            minTemp: 34,
+            maxTemp: 99,
+            humidity: 50
         };
         const wrapper = shallow(<WeatherCard weather={props}/>);
         expect(wrapper.find("Panel").length).toBe(1);
         expect(wrapper.find("p").length).toBe(4);
-        expect(wrapper.find("p").first().text()).toContain("Description");
-        expect(wrapper.find("p").at(1).text()).toContain("Minimum");
-        expect(wrapper.find("p").at(2).text()).toContain("Maximum");
-        expect(wrapper.find("p").last().text()).toContain("Humidity");
+        expect(wrapper.find("p").first().text()).toContain(`Description: ${props.description}`);
+        expect(wrapper.find("p").at(1).text()).toContain(`Minimum: ${props.minTemp}º C`);
+        expect(wrapper.find("p").at(2).text()).toContain(`Maximum: ${props.maxTemp}º C`);
+        expect(wrapper.find("p").last().text()).toContain(`Humidity: ${props.humidity}%`);
+        console.log(wrapper.find("p").at(0).text());
     });
 });

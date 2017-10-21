@@ -6,5 +6,5 @@ const mockGeolocation = {
         }
     }))
 };
-
+global.navigator = {};
 global.navigator.geolocation = mockGeolocation;

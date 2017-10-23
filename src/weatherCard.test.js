@@ -11,7 +11,7 @@ describe("WeatherCard", () => {
     it("Should mount correctly", () => {
         const props = {
             icon: "",
-            date: new Date(),
+            date: new Date().getMilliseconds(),
             description: "sunny",
             minTemp: 34,
             maxTemp: 99,
@@ -24,6 +24,5 @@ describe("WeatherCard", () => {
         expect(wrapper.find("p").at(1).text()).toContain(`Minimum: ${props.minTemp}º C`);
         expect(wrapper.find("p").at(2).text()).toContain(`Maximum: ${props.maxTemp}º C`);
         expect(wrapper.find("p").last().text()).toContain(`Humidity: ${props.humidity}%`);
-        console.log(wrapper.find("p").at(0).text());
     });
 });

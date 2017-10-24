@@ -16,8 +16,17 @@ npm start
 
 Your browser should open on http://localhost:3000
 
+to test the project, run
+```
+npm test
+```
 
-Changelog
+To chek the coverage, do
+```
+npm run test:coverage
+```
+
+## Changelog
 
 * 1.0 Pure React implementation
 * 1.2 Redux Implementation

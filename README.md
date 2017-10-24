@@ -15,3 +15,12 @@ npm start
 ```
 
 Your browser should open on http://localhost:3000
+
+
+Changelog
+
+* 1.0 Pure React implementation
+* 1.2 Redux Implementation
+* 1.3 Workshop given in Valencia, Spain 🇪🇸
+* 1.4 Redux-Observable poc
+* 1.5 Jest, Enzyme tests.

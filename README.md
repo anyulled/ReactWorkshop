@@ -1,5 +1,7 @@
 # React Workshop
 
+[![Build Status](https://travis-ci.org/anyulled/ReactWorkshop.svg?branch=master)](https://travis-ci.org/anyulled/ReactWorkshop)
+
 ## Startup
 
 To initialize the project, please do
@@ -33,3 +35,4 @@ npm run test:coverage
 * 1.3 Workshop given in Valencia, Spain 🇪🇸
 * 1.4 Redux-Observable poc
 * 1.5 Jest, Enzyme tests.
+* 1.6 Workshop given in London, UK 🇬🇧

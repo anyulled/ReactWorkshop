@@ -3,14 +3,15 @@
  */
 import React from "react";
 import {Provider} from "react-redux";
-import {mount} from "enzyme";
+import {mount, configure} from "enzyme";
 import {createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import reducer from "../store/weatherReducer";
-
 import WeatherContainer from "./WeatherContainer";
 import WeatherForeCast from "../components/WeatherForecast";
+import Adapter from "enzyme-adapter-react-16";
 
+configure({adapter: new Adapter()});
 describe("Weather Container", () => {
     let WrapperComponent,
         WrapperContainer,

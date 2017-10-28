@@ -14,12 +14,12 @@ const clearData = () => ({
     type: weatherActionType.WEATHER_CLEAR
 });
 
-export const errorData = (error) => ({
+export const errorData = error => ({
     type: weatherActionType.WEATHER_ERROR,
     payload: error
 });
 
-const loadData = (response) => ({
+const loadData = response => ({
     type: weatherActionType.WEATHER_LOAD,
     payload: {
         city: response.data.city.name,
@@ -37,7 +37,7 @@ const loadData = (response) => ({
 export function loadWeatherData(latitude, longitude) {
     return (dispatch) => {
         dispatch(clearData());
-        axios(`http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&lang=es&lat=${latitude}&lon=${longitude}&appid=${WEATHER_API}`)
+        return axios(`http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&lang=es&lat=${latitude}&lon=${longitude}&appid=${WEATHER_API}`)
             .then(response => dispatch(loadData(response)))
             .catch(error => dispatch(errorData(error.message)));
     };

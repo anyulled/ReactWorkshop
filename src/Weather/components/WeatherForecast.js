@@ -2,13 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import WeatherCard from "./WeatherCard";
-import {Alert, ProgressBar, Grid, Row, Col} from "react-bootstrap";
+import {Alert, Col, Grid, ProgressBar, Row} from "react-bootstrap";
 
 class WeatherForecast extends React.Component {
+    loadForecastByCoords = (latitude, longitude) => {
+        this.props.loadData(latitude, longitude);
+    };
+
     componentDidMount() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                this.props.loadData(position.coords.latitude, position.coords.longitude);
+            navigator.geolocation.getCurrentPosition(({position: {coords: {latitude, longitude}}}) => {
+                this.loadForecastByCoords(latitude, longitude);
             }, error => {
                 this.props.errorData(error.message);
             });
@@ -49,11 +53,11 @@ WeatherForecast.propTypes = {
 };
 
 WeatherForecast.defaultProps = {
-    loading:false,
-    city:"No City",
-    error:false,
-    message:"",
-    forecast:[]
+    loading: false,
+    city: "No City",
+    error: false,
+    message: "",
+    forecast: []
 };
 
 export default WeatherForecast;

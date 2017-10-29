@@ -3,18 +3,16 @@
  */
 import React from "react";
 import {Provider} from "react-redux";
-import {mount, configure} from "enzyme";
-import {createStore, applyMiddleware} from "redux";
+import {mount} from "enzyme";
+import {applyMiddleware, createStore} from "redux";
 import thunk from "redux-thunk";
 import reducer from "../store/weatherReducer";
 import WeatherContainer from "./WeatherContainer";
 import WeatherForeCast from "../components/WeatherForecast";
-import Adapter from "enzyme-adapter-react-16";
 
-configure({adapter: new Adapter()});
 describe("Weather Container", () => {
-    let WrapperComponent,
-        WrapperContainer,
+    let WrapperContainer,
+        WrapperForecast,
         wrapper;
     const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -24,12 +22,17 @@ describe("Weather Container", () => {
                 <WeatherContainer/>
             </Provider>
         );
-        WrapperComponent = wrapper.find(WeatherContainer);
-        WrapperContainer = WrapperComponent.find(WeatherForeCast);
+        WrapperContainer = wrapper.find(WeatherContainer);
+        WrapperForecast = WrapperContainer.find(WeatherForeCast);
     });
 
     it("should render Container and Component", () => {
+        expect(WrapperForecast.length).toBeTruthy();
         expect(WrapperContainer.length).toBeTruthy();
-        expect(WrapperComponent.length).toBeTruthy();
+    });
+
+    it("should be able to call loadData as a prop function", () => {
+        console.log(WrapperForecast.instance().loadForecastByCoords(2, 3));
+
     });
 });

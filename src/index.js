@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import "./index.css";
 import App from "./Weather/components/App";
 import StyledComponent from "./styled/components/StyledComponent";
-import Navigation from "./Weather/components/Navbar";
+import Navigation from "./Weather/components/Navigation";
 import registerServiceWorker from "./registerServiceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";

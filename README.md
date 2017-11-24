@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/anyulled/ReactWorkshop.svg?branch=master)](https://travis-ci.org/anyulled/ReactWorkshop)
 
+Slides available here: http://slides.com/anyulled/react-for-redux#/
+
 ## Startup
 
 To initialize the project, please do

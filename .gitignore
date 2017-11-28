@@ -13,3 +13,4 @@ yarn-error.log*
 *.lock
 config/
 scripts/
+build/

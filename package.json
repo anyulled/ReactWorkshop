@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.2.0",
     "eslint-plugin-import": "^2.7.0",
     "jest": "^20.0.4",
@@ -28,6 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
+    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "eslint": "eslint src/*.js --fix",
     "eject": "react-scripts eject"
   }

@@ -1,6 +1,7 @@
 # React Workshop
 
 [![Build Status](https://travis-ci.org/anyulled/ReactWorkshop.svg?branch=master)](https://travis-ci.org/anyulled/ReactWorkshop)
+[![Coverage Status](https://coveralls.io/repos/github/anyulled/ReactWorkshop/badge.svg?branch=master)](https://coveralls.io/github/anyulled/ReactWorkshop?branch=master)
 
 Slides available here: http://slides.com/anyulled/react-for-redux#/
 

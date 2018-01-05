@@ -1,7 +1,19 @@
+dist: trusty
+sudo: required
+
+addons:
+  sonarcloud:
+    organization: "anyulled-github"
+    token:
+      secure:  sonarToken
+jdk:
+  - oraclejdk8
+
 language: node_js
 cache:
   directories:
     - node_modules
+    - '$HOME/.sonar/cache'
 notifications:
   email: false
 node_js:
@@ -12,5 +24,6 @@ script:
 - npm run test:coverage
 - npm run eslint
 - npm run build
+- sonar-scanner
 after_script:
 - npm run coveralls

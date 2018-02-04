@@ -1,30 +1,32 @@
-import React, {Component} from "react";
-import {Col, Glyphicon, Grid, PageHeader, Row} from "react-bootstrap";
+import React, { Component } from "react";
+import { Col, Glyphicon, Grid, PageHeader, Row } from "react-bootstrap";
 import WeatherForecast from "./WeatherForecast";
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            city: ""
+            city: "",
         };
         this.modifyCity = this.modifyCity.bind(this);
     }
 
     modifyCity(city) {
         this.setState({
-            city
+            city,
         });
     }
 
     render() {
         return (
             <div>
-                <PageHeader><Glyphicon glyph="grain"/> {this.state.city || "Weather App"}</PageHeader>
+                <PageHeader>
+                    <Glyphicon glyph="grain" /> {this.state.city || "Weather App"}
+                </PageHeader>
                 <Grid>
                     <Row>
                         <Col sm={12}>
-                            <WeatherForecast modifyCity={this.modifyCity}/>
+                            <WeatherForecast modifyCity={this.modifyCity} />
                         </Col>
                     </Row>
                 </Grid>

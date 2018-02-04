@@ -10,6 +10,5 @@ import "bootstrap/dist/fonts/glyphicons-halflings-regular.eot";
 import "bootstrap/dist/fonts/glyphicons-halflings-regular.svg";
 import "bootstrap/dist/fonts/glyphicons-halflings-regular.woff";
 
-
 ReactDOM.render(<App />, document.getElementById("root"));
 registerServiceWorker();

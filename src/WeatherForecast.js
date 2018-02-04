@@ -2,19 +2,7 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import WeatherCard from "./WeatherCard";
-import {
-    Alert,
-    Button,
-    ButtonGroup,
-    Col,
-    ControlLabel,
-    Form,
-    FormControl,
-    FormGroup,
-    Grid,
-    ProgressBar,
-    Row
-} from "react-bootstrap";
+import { Alert, Button, ButtonGroup, Col, ControlLabel, Form, FormControl, FormGroup, Grid, ProgressBar, Row } from "react-bootstrap";
 
 const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";
 
@@ -27,7 +15,7 @@ class WeatherForecast extends React.Component {
             selectedCityId: "",
             message: "",
             city: "",
-            forecast: []
+            forecast: [],
         };
         this.currentLocationLoad = this.currentLocationLoad.bind(this);
         this.clearData = this.clearData.bind(this);
@@ -46,51 +34,52 @@ class WeatherForecast extends React.Component {
             city: "",
             message: "",
             error: false,
-            selectedCityId: ""
+            selectedCityId: "",
         });
     }
 
     currentLocationLoad() {
-        this.setState({loading: true});
+        this.setState({ loading: true });
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                this.loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
-                this.setState({selectedCityId: "", loading: false});
-            }, error => {
-                this.setState({
-                    loading: false,
-                    error: true,
-                    message: error.message
-                });
-            });
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
+                    this.setState({ selectedCityId: "", loading: false });
+                },
+                error => {
+                    this.setState({
+                        loading: false,
+                        error: true,
+                        message: error.message,
+                    });
+                },
+            );
         } else {
             this.setState({
                 error: true,
-                message: "Geo location disabled"
+                message: "Geo location disabled",
             });
         }
     }
 
     onChangeHandler(event) {
-        const {target: {value: city}} = event;
+        const { target: { value: city } } = event;
         if (city !== "") {
-            this.setState({selectedCityId: city});
+            this.setState({ selectedCityId: city });
             this.loadCityById(city);
         }
     }
 
     loadCityByCoordinates(latitude, longitude) {
-        axios("http://api.openweathermap.org/data/2.5/forecast/daily",
-            {
-                params:
-                    {
-                        units: "metric",
-                        lang: "es",
-                        lat: latitude,
-                        lon: longitude,
-                        appid: WEATHER_API
-                    }
-            })
+        axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
+            params: {
+                units: "metric",
+                lang: "es",
+                lat: latitude,
+                lon: longitude,
+                appid: WEATHER_API,
+            },
+        })
             .then(response => {
                 this.props.modifyCity(response.data.city.name);
                 this.processResponse(response);
@@ -99,7 +88,7 @@ class WeatherForecast extends React.Component {
                 this.setState({
                     loading: false,
                     error: true,
-                    message: error.message
+                    message: error.message,
                 });
             });
     }
@@ -114,8 +103,8 @@ class WeatherForecast extends React.Component {
                 description: weather.weather[0].description,
                 minTemp: weather.temp.min,
                 maxTemp: weather.temp.max,
-                humidity: weather.humidity
-            }))
+                humidity: weather.humidity,
+            })),
         });
     }
 
@@ -125,63 +114,90 @@ class WeatherForecast extends React.Component {
                 units: "metric",
                 lang: "es",
                 id: cityId,
-                appid: WEATHER_API
-            }
-        }).then(response => {
-            this.props.modifyCity(response.data.city.name);
-            this.processResponse(response);
+                appid: WEATHER_API,
+            },
         })
-            .catch(error => this.setState({
-                error: true,
-                message: error.message
-            }));
+            .then(response => {
+                this.props.modifyCity(response.data.city.name);
+                this.processResponse(response);
+            })
+            .catch(error =>
+                this.setState({
+                    error: true,
+                    message: error.message,
+                }),
+            );
     }
 
     render() {
-        const {state: {loading, city, forecast, error, message}, currentLocationLoad, onChangeHandler} = this;
-        const LoadingComponent = () => loading ? <ProgressBar active now={100}/> : <h1>City
-            <small>{city}</small>
-        </h1>;
-        return (<div>
-            <LoadingComponent/>
-            <Grid>
-                <Row>
-                    <Col xs={5}>
-                        <ButtonGroup>
-                            <Button bsStyle="primary" type="button" onClick={this.clearData}>Clear data</Button>
-                            <Button bsStyle="info" type="button" onClick={currentLocationLoad}>Current Location
-                                data</Button>
-                        </ButtonGroup>
-                    </Col>
-                    <Col xs={7}>
-                        <Form horizontal>
-                            <FormGroup controlId="formControlsSelect">
-                                <Col xs={3}><ControlLabel>Select City</ControlLabel></Col>
-                                <Col xs={9}>
-                                    <FormControl id="citySelect" componentClass="select" placeholder="select"
-                                                 value={this.state.selectedCityId}
-                                                 onChange={onChangeHandler}>
-                                        <option value="">Select</option>
-                                        <option value="360630">El Cairo</option>
-                                        <option value="2643743">London</option>
-                                        <option value="3128759">Barcelona</option>
-                                    </FormControl>
+        const { state: { loading, city, forecast, error, message }, currentLocationLoad, onChangeHandler } = this;
+        const LoadingComponent = () =>
+            loading ? (
+                <ProgressBar active now={100} />
+            ) : (
+                <h1>
+                    City
+                    <small>{city}</small>
+                </h1>
+            );
+        return (
+            <div>
+                <LoadingComponent />
+                <Grid>
+                    <Row>
+                        <Col xs={5}>
+                            <ButtonGroup>
+                                <Button bsStyle="primary" type="button" onClick={this.clearData}>
+                                    Clear data
+                                </Button>
+                                <Button bsStyle="info" type="button" onClick={currentLocationLoad}>
+                                    Current Location data
+                                </Button>
+                            </ButtonGroup>
+                        </Col>
+                        <Col xs={7}>
+                            <Form horizontal>
+                                <FormGroup controlId="formControlsSelect">
+                                    <Col xs={3}>
+                                        <ControlLabel>Select City</ControlLabel>
+                                    </Col>
+                                    <Col xs={9}>
+                                        <FormControl
+                                            id="citySelect"
+                                            componentClass="select"
+                                            placeholder="select"
+                                            value={this.state.selectedCityId}
+                                            onChange={onChangeHandler}>
+                                            <option value="">Select</option>
+                                            <option value="360630">El Cairo</option>
+                                            <option value="2643743">London</option>
+                                            <option value="3128759">Barcelona</option>
+                                        </FormControl>
+                                    </Col>
+                                </FormGroup>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Grid>
+                {forecast.length > 0 && (
+                    <Grid>
+                        <Row>
+                            {forecast.map((date, index) => (
+                                <Col key={index} sm={index === 0 ? 6 : 3}>
+                                    <WeatherCard weather={date} />
                                 </Col>
-                            </FormGroup>
-                        </Form>
-                    </Col>
-                </Row>
-            </Grid>
-            {forecast.length > 0 && <Grid><Row>{forecast.map((date, index) => (
-                <Col key={index} sm={index === 0 ? 6 : 3}><WeatherCard weather={date}/></Col>))}</Row></Grid>}
-            {error && this.state.message && <Alert bsStyle="danger">{message}</Alert>}
-        </div>);
+                            ))}
+                        </Row>
+                    </Grid>
+                )}
+                {error && this.state.message && <Alert bsStyle="danger">{message}</Alert>}
+            </div>
+        );
     }
 }
 
 WeatherForecast.propTypes = {
-    modifyCity: PropTypes.func.isRequired
+    modifyCity: PropTypes.func.isRequired,
 };
 
 export default WeatherForecast;
-

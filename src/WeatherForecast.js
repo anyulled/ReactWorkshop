@@ -156,8 +156,8 @@ class WeatherForecast extends React.Component {
                                 <Col xs={3}><ControlLabel>Select City</ControlLabel></Col>
                                 <Col xs={9}>
                                     <FormControl id="citySelect" componentClass="select" placeholder="select"
-                                                 value={this.state.selectedCityId}
-                                                 onChange={onChangeHandler}>
+                                        value={this.state.selectedCityId}
+                                        onChange={onChangeHandler}>
                                         <option value="">Select</option>
                                         <option value="360630">El Cairo</option>
                                         <option value="2643743">London</option>

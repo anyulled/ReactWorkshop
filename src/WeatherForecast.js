@@ -19,8 +19,8 @@ import {
 const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";
 
 class WeatherForecast extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             loading: true,
             error: false,
@@ -29,16 +29,13 @@ class WeatherForecast extends React.Component {
             city: "",
             forecast: []
         };
-        this.currentLocationLoad = this.currentLocationLoad.bind(this);
-        this.clearData = this.clearData.bind(this);
-        this.onChangeHandler = this.onChangeHandler.bind(this);
     }
 
     componentDidMount() {
         this.currentLocationLoad();
     }
 
-    clearData(event) {
+    clearData = event => {
         event.preventDefault();
         this.setState({
             loading: false,
@@ -48,9 +45,9 @@ class WeatherForecast extends React.Component {
             error: false,
             selectedCityId: ""
         });
-    }
+    };
 
-    currentLocationLoad() {
+    currentLocationLoad = () => {
         this.setState({loading: true});
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -69,17 +66,17 @@ class WeatherForecast extends React.Component {
                 message: "Geo location disabled"
             });
         }
-    }
+    };
 
-    onChangeHandler(event) {
+    onChangeHandler = event => {
         const {target: {value: city}} = event;
         if (city !== "") {
             this.setState({selectedCityId: city});
             this.loadCityById(city);
         }
-    }
+    };
 
-    loadCityByCoordinates(latitude, longitude) {
+    loadCityByCoordinates = (latitude, longitude) => {
         axios("http://api.openweathermap.org/data/2.5/forecast/daily",
             {
                 params:
@@ -102,9 +99,9 @@ class WeatherForecast extends React.Component {
                     message: error.message
                 });
             });
-    }
+    };
 
-    processResponse(response) {
+    processResponse = response => {
         this.setState({
             loading: false,
             city: response.data.city.name,
@@ -117,9 +114,9 @@ class WeatherForecast extends React.Component {
                 humidity: weather.humidity
             }))
         });
-    }
+    };
 
-    loadCityById(cityId) {
+    loadCityById = cityId => {
         axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
             params: {
                 units: "metric",
@@ -135,7 +132,7 @@ class WeatherForecast extends React.Component {
                 error: true,
                 message: error.message
             }));
-    }
+    };
 
     render() {
         const {state: {loading, city, forecast, error, message}, currentLocationLoad, onChangeHandler} = this;
@@ -159,8 +156,8 @@ class WeatherForecast extends React.Component {
                                 <Col xs={3}><ControlLabel>Select City</ControlLabel></Col>
                                 <Col xs={9}>
                                     <FormControl id="citySelect" componentClass="select" placeholder="select"
-                                                 value={this.state.selectedCityId}
-                                                 onChange={onChangeHandler}>
+                                        value={this.state.selectedCityId}
+                                        onChange={onChangeHandler}>
                                         <option value="">Select</option>
                                         <option value="360630">El Cairo</option>
                                         <option value="2643743">London</option>

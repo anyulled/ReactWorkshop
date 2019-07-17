@@ -3,19 +3,18 @@ import {Col, Glyphicon, Grid, PageHeader, Row} from "react-bootstrap";
 import WeatherForecast from "./WeatherForecast";
 
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             city: ""
         };
-        this.modifyCity = this.modifyCity.bind(this);
     }
 
-    modifyCity(city) {
+    modifyCity = city => {
         this.setState({
             city
         });
-    }
+    };
 
     render() {
         return (

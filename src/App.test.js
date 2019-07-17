@@ -1,7 +1,7 @@
 import React from "react";
 import App from "./App";
 import {configure, mount, render, shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-15";
+import Adapter from "enzyme-adapter-react-16";
 
 describe("App", () => {
     beforeAll(() => {

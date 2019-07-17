@@ -14,7 +14,7 @@ class WeatherCard extends React.Component {
             {`${date.toLocaleDateString()}`}</span>);
         return (<Panel header={title} bsStyle="info">
             <p><strong>Description</strong>: {`${weather.description}`}</p>
-            <p><strong>Minimum: </strong> {`${weather.minTemp}º C`} </p>
+            <p><strong>Minimum:</strong> {`${weather.minTemp}º C`}</p>
             <p><strong>Maximum:</strong> {`${weather.maxTemp}º C`}</p>
             <p><strong>Humidity:</strong> {`${weather.humidity}%`}</p>
         </Panel>);

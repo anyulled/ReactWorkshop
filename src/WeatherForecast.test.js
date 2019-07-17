@@ -4,7 +4,7 @@ import sinon from "sinon";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import Adapter from "enzyme-adapter-react-15";
+import Adapter from "enzyme-adapter-react-16";
 
 describe("weather forecast", () => {
     const serviceResponse = {

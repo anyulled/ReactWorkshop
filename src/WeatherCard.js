@@ -5,21 +5,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Panel} from "react-bootstrap";
 
-class WeatherCard extends React.Component {
-    render() {
-        const {props: {weather}} = this;
-        const date = new Date(weather.date * 1000);
-        const title = (<span>
-            <img alt="forecast" height="32" src={`http://openweathermap.org/img/w/${weather.icon}.png`}/>
-            {`${date.toLocaleDateString()}`}</span>);
-        return (<Panel header={title} bsStyle="info">
-            <p><strong>Description</strong>: {`${weather.description}`}</p>
-            <p><strong>Minimum:</strong> {`${weather.minTemp}º C`}</p>
-            <p><strong>Maximum:</strong> {`${weather.maxTemp}º C`}</p>
-            <p><strong>Humidity:</strong> {`${weather.humidity}%`}</p>
-        </Panel>);
-    }
-}
+const WeatherCard = ({weather: {date, description, humidity, icon, maxTemp, minTemp}}) => {
+    const dateRender = new Date(date * 1000);
+    const title = (<span><img alt="forecast" height="32" src={`http://openweathermap.org/img/w/${icon}.png`}/>{`${dateRender.toLocaleDateString()}`}</span>);
+    return <Panel header={title} bsStyle="info">
+        <p><strong>Description</strong>: {`${description}`}</p>
+        <p><strong>Minimum:</strong> {`${minTemp}º C`}</p>
+        <p><strong>Maximum:</strong> {`${maxTemp}º C`}</p>
+        <p><strong>Humidity:</strong> {`${humidity}%`}</p>
+    </Panel>;
+};
 
 WeatherCard.propTypes = {
     weather: PropTypes.shape({

@@ -1,13 +1,26 @@
 {
   "name": "gftreactworkshop",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "email": "anyulled@gmail.com",
+    "name": "anyul Rivas"
+  },
+  "homepage": "https://github.com/anyulled/ReactWorkshop",
+  "keywords": [
+    "react",
+    "axios"
+  ],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/anyulled/ReactWorkshop"
+  },
   "dependencies": {
     "bootstrap": "^3.4.1",
     "prop-types": "latest",
-    "react": "^16.7.0",
+    "react": "^16.8.0",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.8.0"
   },
   "devDependencies": {
     "axios": "^0.19.0",

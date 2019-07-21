@@ -1,35 +1,22 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import {Col, Glyphicon, Grid, PageHeader, Row} from "react-bootstrap";
 import WeatherForecast from "./WeatherForecast";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            city: ""
-        };
-    }
+export default function App() {
+    const [city, setCity] = useState("");
 
-    modifyCity = city => {
-        this.setState({
-            city
-        });
-    };
+    const handleClick = city => setCity(city);
 
-    render() {
-        return (
-            <div>
-                <PageHeader><Glyphicon glyph="grain"/> {this.state.city || "Weather App"}</PageHeader>
-                <Grid>
-                    <Row>
-                        <Col sm={12}>
-                            <WeatherForecast modifyCity={this.modifyCity}/>
-                        </Col>
-                    </Row>
-                </Grid>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <PageHeader><Glyphicon glyph="grain"/> {city || "Weather App"}</PageHeader>
+            <Grid>
+                <Row>
+                    <Col sm={12}>
+                        <WeatherForecast modifyCity={handleClick}/>
+                    </Col>
+                </Row>
+            </Grid>
+        </div>
+    );
 }
-
-export default App;

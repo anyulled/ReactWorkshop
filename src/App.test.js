@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App";
-import {configure, mount, render} from "enzyme";
+import {configure, mount, render, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 describe("App", () => {
@@ -9,9 +9,10 @@ describe("App", () => {
     });
 
     it("renders without crashing", () => {
-        expect(mount(<App/>).find("div").length).toBe(1);
-        expect(mount(<App/>).find("PageHeader").length).toBe(1);
-        expect(mount(<App/>).find("Grid").length).toBe(1);
+        const wrapper = shallow(<App/>);
+        expect(wrapper.find("div").length).toBe(1);
+        expect(wrapper.find("PageHeader").length).toBe(1);
+        expect(wrapper.find("Grid").length).toBe(1);
     });
 
     it("should mount in a full DOM", () => {

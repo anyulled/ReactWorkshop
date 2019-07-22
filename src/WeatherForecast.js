@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {Alert, Col, Grid, ProgressBar, Row} from "react-bootstrap";
-import {CityForm} from "./CityForm";
-import {LocationButtonGroup} from "./LocationButtonGroup";
+import CityForm from "./CityForm";
+import LocationButtonGroup from "./LocationButtonGroup";
 import {ForecastCardList} from "./ForecastCardList";
 
 const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";

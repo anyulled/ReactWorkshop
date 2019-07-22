@@ -1,72 +1,63 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import {Alert, Col, Grid, ProgressBar, Row} from "react-bootstrap";
+import {Alert, Col, Grid, Row} from "react-bootstrap";
 import CityForm from "./CityForm";
 import LocationButtonGroup from "./LocationButtonGroup";
-import {ForecastCardList} from "./ForecastCardList";
+import ForecastCardList from "./ForecastCardList";
+import LoadingComponent from "./LoadingComponent";
+import {WEATHER_API} from "./constants";
 
-const WEATHER_API = "bfc079575bff7ec0b8e4a53770e35ec7";
+const WeatherForecast = ({modifyCity}) => {
 
-class WeatherForecast extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-            error: false,
-            selectedCityId: "",
-            message: "",
-            city: "",
-            forecast: []
-        };
-    }
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState(false);
+    const [selectedCityId, setSelectedCityId] = useState("");
+    const [city, setCity] = useState("");
+    const [forecast, setForecast] = useState([]);
 
-    componentDidMount() {
-        this.currentLocationLoad();
-    }
+    useEffect(() => {
+        currentLocationLoad();
+    }, [selectedCityId]);
 
-    clearData = event => {
+    const clearData = event => {
         event.preventDefault();
-        this.setState({
-            loading: false,
-            forecast: [],
-            city: "",
-            message: "",
-            error: false,
-            selectedCityId: ""
-        });
+        setLoading(false);
+        setMessage("");
+        setError(false);
+        setForecast([]);
+        setCity("");
+        setSelectedCityId("");
     };
 
-    currentLocationLoad = () => {
-        this.setState({loading: true});
+    const currentLocationLoad = () => {
+        setLoading(true);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
-                this.setState({selectedCityId: "", loading: false});
+                loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
+                setSelectedCityId("");
+                setLoading(false);
             }, error => {
-                this.setState({
-                    loading: false,
-                    error: true,
-                    message: error.message
-                });
+                setLoading(false);
+                setError(true);
+                setMessage(error.message);
             });
         } else {
-            this.setState({
-                error: true,
-                message: "Geo location disabled"
-            });
+            setError(true);
+            setMessage("Geo location disabled");
         }
     };
 
-    onChangeHandler = event => {
+    const onChangeHandler = event => {
         const {target: {value: city}} = event;
         if (city !== "") {
-            this.setState({selectedCityId: city});
-            this.loadCityById(city);
+            setSelectedCityId(city);
+            loadCityById(city);
         }
     };
 
-    loadCityByCoordinates = (latitude, longitude) => {
+    const loadCityByCoordinates = (latitude, longitude) => {
         axios("http://api.openweathermap.org/data/2.5/forecast/daily",
             {
                 params:
@@ -91,11 +82,11 @@ class WeatherForecast extends React.Component {
             });
     };
 
-    processResponse = response => {
-        this.setState({
-            loading: false,
-            city: response.data.city.name,
-            forecast: response.data.list.map(weather => ({
+    const processResponse = response => {
+        setLoading(false);
+        setCity(response.data.city.name);
+        setForecast(response.data.list.map(weather => (
+            {
                 icon: weather.weather[0].icon,
                 date: weather.dt,
                 description: weather.weather[0].description,
@@ -103,10 +94,10 @@ class WeatherForecast extends React.Component {
                 maxTemp: weather.temp.max,
                 humidity: weather.humidity
             }))
-        });
+        );
     };
 
-    loadCityById = cityId => {
+    const loadCityById = cityId => {
         axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
             params: {
                 units: "metric",
@@ -115,35 +106,30 @@ class WeatherForecast extends React.Component {
                 appid: WEATHER_API
             }
         }).then(response => {
-            this.props.modifyCity(response.data.city.name);
-            this.processResponse(response);
-        })
-            .catch(error => this.setState({
-                error: true,
-                message: error.message
-            }));
+            modifyCity(response.data.city.name);
+            processResponse(response);
+        }).catch(error => {
+            setError(true);
+            setMessage(error.message);
+        });
     };
 
-    render() {
-        const {state: {loading, city, forecast, error, message}, currentLocationLoad, onChangeHandler} = this;
-        const LoadingComponent = () => loading ? <ProgressBar active now={100}/> : <h1>City <small>{city}</small></h1>;
-        return (<div>
-            <LoadingComponent/>
-            <Grid>
-                <Row>
-                    <Col xs={5}>
-                        <LocationButtonGroup clearDataHandler={this.clearData} currentLocationHandler={currentLocationLoad}/>
-                    </Col>
-                    <Col xs={7}>
-                        <CityForm value={this.state.selectedCityId} onChange={onChangeHandler}/>
-                    </Col>
-                </Row>
-            </Grid>
-            <ForecastCardList forecast={forecast} />
-            {error && this.state.message && <Alert bsStyle="danger">{message}</Alert>}
-        </div>);
-    }
-}
+    return (<div>
+        <LoadingComponent city={city} loading={loading}/>
+        <Grid>
+            <Row>
+                <Col xs={5}>
+                    <LocationButtonGroup clearDataHandler={clearData} currentLocationHandler={currentLocationLoad}/>
+                </Col>
+                <Col xs={7}>
+                    <CityForm value={selectedCityId} onChange={onChangeHandler}/>
+                </Col>
+            </Row>
+        </Grid>
+        <ForecastCardList forecast={forecast}/>
+        {error && message && <Alert bsStyle="danger">{message}</Alert>}
+    </div>);
+};
 
 WeatherForecast.propTypes = {
     modifyCity: PropTypes.func.isRequired

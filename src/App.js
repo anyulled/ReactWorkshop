@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Col, Glyphicon, Grid, PageHeader, Row} from "react-bootstrap";
 import WeatherForecast from "./WeatherForecast";
 
-export default function App() {
+const App = () => {
     const [city, setCity] = useState("");
 
     const handleClick = city => setCity(city);
@@ -17,4 +17,5 @@ export default function App() {
             </Row>
         </Grid>
     </div>;
-}
+};
+export default App;

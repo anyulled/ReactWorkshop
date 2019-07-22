@@ -7,16 +7,14 @@ export default function App() {
 
     const handleClick = city => setCity(city);
 
-    return (
-        <div>
-            <PageHeader><Glyphicon glyph="grain"/> {city || "Weather App"}</PageHeader>
-            <Grid>
-                <Row>
-                    <Col sm={12}>
-                        <WeatherForecast modifyCity={handleClick}/>
-                    </Col>
-                </Row>
-            </Grid>
-        </div>
-    );
+    return <div>
+        <PageHeader><Glyphicon glyph="grain"/> {city || "Weather App"}</PageHeader>
+        <Grid>
+            <Row>
+                <Col sm={12}>
+                    <WeatherForecast modifyCity={handleClick}/>
+                </Col>
+            </Row>
+        </Grid>
+    </div>;
 }

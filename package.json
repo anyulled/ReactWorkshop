@@ -35,7 +35,7 @@
     "jest-cli": "^24.8.0",
     "jsdom": "latest",
     "react-scripts": "3.0.1",
-    "react-test-renderer": "^16.7.0",
+    "react-test-renderer": "^16.8.6",
     "sinon": "^7.3.2"
   },
   "scripts": {

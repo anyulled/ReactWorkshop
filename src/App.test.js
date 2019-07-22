@@ -1,31 +1,33 @@
 import React from "react";
 import App from "./App";
-import {configure, mount, render, shallow} from "enzyme";
+import {configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 describe("App", () => {
+    let wrapper;
     beforeAll(() => {
         configure({adapter: new Adapter()});
     });
+    beforeEach(() => {
+        wrapper = shallow(<App/>);
+    });
 
     it("renders without crashing", () => {
-        const wrapper = shallow(<App/>);
-        expect(wrapper.find("div").length).toBe(1);
-        expect(wrapper.find("PageHeader").length).toBe(1);
-        expect(wrapper.find("Grid").length).toBe(1);
+        expect(wrapper.find("div")).toHaveLength(1);
+        expect(wrapper.find("PageHeader")).toHaveLength(1);
+        expect(wrapper.find("PageHeader").dive().text()).toContain("Weather App");
+        expect(wrapper.find("Grid")).toHaveLength(1);
     });
 
     it("should mount in a full DOM", () => {
-        expect(mount(<App/>).find(".glyphicon").length).toBe(1);
+        expect(wrapper.find("Glyphicon")).toHaveLength(1);
     });
 
     it("should render to static HTML", () => {
-        expect(render(<App/>).text()).toContain("Weather App");
+        expect(wrapper.find("Grid")).toHaveLength(1);
     });
 
     it("should modify a city", () => {
-        const wrapper = mount(<App/>);
-        wrapper.instance().modifyCity("Arizona");
-        expect(wrapper.state("city")).toBe("Arizona");
+        expect(wrapper.find("WeatherForecast")).toHaveLength(1);
     });
 });

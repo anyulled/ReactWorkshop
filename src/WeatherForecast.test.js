@@ -1,7 +1,6 @@
 import WeatherForecast from "./WeatherForecast";
 import {act} from "react-dom/test-utils";
-import {configure, shallow} from "enzyme";
-import sinon from "sinon";
+import {configure, mount, shallow} from "enzyme";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
@@ -197,7 +196,7 @@ describe("weather forecast", () => {
             }
         ]
     };
-    const modifyCity = sinon.spy();
+    const modifyCity = jest.fn();
     const mock = new MockAdapter(axios);
     let wrapper;
     beforeAll(() => {
@@ -216,6 +215,15 @@ describe("weather forecast", () => {
         expect(wrapper.find("LocationButtonGroup").length).toBe(1);
         expect(wrapper.find("CityForm").length).toBe(1);
         expect(wrapper.find("ForecastCardList").length).toBe(1);
-        console.log(wrapper.debug());
+    });
+
+    it("should clear all data when the clear button is pressed", () => {
+        act(() => {
+            wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
+        });
+        act(() => {
+            wrapper.find("Button").first().simulate("click");
+        });
+        expect(wrapper.find("ForecastCardList").props("forecast").forecast.length).toBe(0);
     });
 });

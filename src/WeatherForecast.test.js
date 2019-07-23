@@ -1,6 +1,6 @@
 import WeatherForecast from "./WeatherForecast";
 import {act} from "react-dom/test-utils";
-import {configure, mount, shallow} from "enzyme";
+import {configure, shallow} from "enzyme";
 import sinon from "sinon";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
@@ -199,7 +199,7 @@ describe("weather forecast", () => {
     };
     const modifyCity = sinon.spy();
     const mock = new MockAdapter(axios);
-    let event;
+    let wrapper;
     beforeAll(() => {
         event = {target: {name: "", value: 360630}};
         configure({adapter: new Adapter()});
@@ -209,43 +209,9 @@ describe("weather forecast", () => {
     });
 
     it("should mount correctly", () => {
-        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
+        act(() => {
+            wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
+        });
         expect(wrapper.find("Grid").length).toBe(1);
     });
-
-    it("should display an error message when load by id fails", () => {
-        let event;
-        mock.reset();
-        mock
-            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
-            .networkError();
-        const wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
-        act(() => {
-            wrapper.find("FormControl").simulate("change", event);
-        });
-        setTimeout(() => {
-            expect(wrapper.find("Alert").length).toBe(1);
-            expect(wrapper.find("Alert").text()).toContain("500");
-        }, 1);
-    });
-
-    it("should display an error message, when Weather API fails", () => {
-        let wrapper;
-        mock.reset();
-        mock
-            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
-            .replyOnce(500, {message: "Test"});
-        act(() => {
-            wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
-        });
-        event = {target: {name: "", value: 360630}};
-        act(() => {
-            wrapper.find("FormControl").simulate("change", event);
-        });
-        setTimeout(() => {
-            expect(wrapper.find("Alert").length).toBe(1);
-            expect(wrapper.find("Alert").text()).toContain("500");
-        }, 1);
-    });
-
 });

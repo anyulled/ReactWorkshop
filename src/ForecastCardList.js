@@ -8,7 +8,7 @@ const ForecastCardList = props => <>{props.forecast.length > 0 && <Grid><Row>{pr
 
 ForecastCardList.propTypes = {
     forecast: PropTypes.arrayOf(PropTypes.shape(
-        {date: PropTypes.object.isRequired}
+        {date: PropTypes.number.isRequired}
     )).isRequired
 };
 

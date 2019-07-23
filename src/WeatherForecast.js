@@ -18,7 +18,11 @@ const WeatherForecast = ({modifyCity}) => {
     const [forecast, setForecast] = useState([]);
 
     useEffect(() => {
-        currentLocationLoad();
+        if (selectedCityId == null || selectedCityId === "") {
+            currentLocationLoad();
+        } else {
+            loadCityById(selectedCityId);
+        }
     }, [selectedCityId]);
 
     const clearData = event => {
@@ -58,27 +62,24 @@ const WeatherForecast = ({modifyCity}) => {
     };
 
     const loadCityByCoordinates = (latitude, longitude) => {
-        axios("http://api.openweathermap.org/data/2.5/forecast/daily",
-            {
-                params:
-                    {
-                        units: "metric",
-                        lang: "es",
-                        lat: latitude,
-                        lon: longitude,
-                        appid: WEATHER_API
-                    }
-            })
+        axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
+            params:
+                {
+                    units: "metric",
+                    lang: "es",
+                    lat: latitude,
+                    lon: longitude,
+                    appid: WEATHER_API
+                }
+        })
             .then(response => {
-                this.props.modifyCity(response.data.city.name);
-                this.processResponse(response);
+                modifyCity(response.data.city.name);
+                processResponse(response);
             })
             .catch(error => {
-                this.setState({
-                    loading: false,
-                    error: true,
-                    message: error.message
-                });
+                setLoading(false);
+                setError(true);
+                setMessage(error.message);
             });
     };
 
@@ -114,7 +115,7 @@ const WeatherForecast = ({modifyCity}) => {
         });
     };
 
-    return (<div>
+    return <div>
         <LoadingComponent city={city} loading={loading}/>
         <Grid>
             <Row>
@@ -128,7 +129,7 @@ const WeatherForecast = ({modifyCity}) => {
         </Grid>
         <ForecastCardList forecast={forecast}/>
         {error && message && <Alert bsStyle="danger">{message}</Alert>}
-    </div>);
+    </div>;
 };
 
 WeatherForecast.propTypes = {

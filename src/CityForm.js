@@ -4,12 +4,12 @@ import React from "react";
 import {cities} from "./constants";
 
 const CityForm = props => <Form horizontal>
-    <FormGroup controlId="formControlsSelect">
+    <FormGroup>
         <Col xs={3}><ControlLabel>Select City</ControlLabel></Col>
         <Col xs={9}>
             <FormControl id="citySelect" componentClass="select" placeholder="select" value={props.value} onChange={props.onChange}>
                 <option value="">Select</option>
-                {cities && cities.map(city => <option value={city.value}>{city.name}</option>)}
+                {cities && cities.map(city => <option key={city.value} value={city.value}>{city.name}</option>)}
             </FormControl>
         </Col>
     </FormGroup>

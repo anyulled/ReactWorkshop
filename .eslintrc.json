@@ -111,9 +111,6 @@
     "react/jsx-no-undef": [
       "warn"
     ],
-    "react/jsx-handler-names": [
-      "warn"
-    ],
     "react/jsx-uses-react": [
       "warn"
     ],

@@ -1,5 +1,6 @@
 import WeatherForecast from "./WeatherForecast";
-import {configure, shallow} from "enzyme";
+import {act} from "react-dom/test-utils";
+import {configure, mount, shallow} from "enzyme";
 import sinon from "sinon";
 import React from "react";
 import MockAdapter from "axios-mock-adapter";
@@ -198,8 +199,9 @@ describe("weather forecast", () => {
     };
     const modifyCity = sinon.spy();
     const mock = new MockAdapter(axios);
-
+    let event;
     beforeAll(() => {
+        event = {target: {name: "", value: 360630}};
         configure({adapter: new Adapter()});
         mock
             .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
@@ -211,53 +213,39 @@ describe("weather forecast", () => {
         expect(wrapper.find("Grid").length).toBe(1);
     });
 
-    it("should load a city by id", (done) => {
-        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        const event = {target: {name: "", value: 360630}};
-        wrapper.find("#citySelect").simulate("change", event);
+    it("should display an error message when load by id fails", () => {
+        let event;
+        mock.reset();
+        mock
+            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
+            .networkError();
+        const wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
+        act(() => {
+            wrapper.find("FormControl").simulate("change", event);
+        });
         setTimeout(() => {
-            expect(wrapper.state("selectedCityId")).toBe(360630);
-            expect(wrapper.state("forecast").length).toEqual(7);
-            done();
-        }, 50);
+            expect(wrapper.find("Alert").length).toBe(1);
+            expect(wrapper.find("Alert").text()).toContain("500");
+        }, 1);
     });
 
-    it("should display a set of forecast cards, given lat long API request", (done) => {
-        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        wrapper.instance().loadCityByCoordinates(0, 0);
-        setTimeout(() => {
-            expect(wrapper.state("forecast").length).toBe(7);
-            done();
-        }, 50);
-    });
-
-    it("should display an error message when load by id fails", (done) => {
+    it("should display an error message, when Weather API fails", () => {
+        let wrapper;
         mock.reset();
         mock
             .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
             .replyOnce(500, {message: "Test"});
-        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        const event = {target: {name: "", value: 360630}};
-        wrapper.find("#citySelect").simulate("change", event);
+        act(() => {
+            wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
+        });
+        event = {target: {name: "", value: 360630}};
+        act(() => {
+            wrapper.find("FormControl").simulate("change", event);
+        });
         setTimeout(() => {
-            expect(wrapper.state("error")).toBe(true);
-            expect(wrapper.state("message")).toContain("Request failed with status code 500");
-            done();
-        }, 500);
-    });
-
-    it("should display an error message, when Weather API fails", (done) => {
-        mock.reset();
-        mock
-            .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
-            .replyOnce(500, {message: "Test"});
-        const wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
-        wrapper.instance().loadCityByCoordinates(0, 0);
-        setTimeout(() => {
-            expect(wrapper.state("error")).toBe(true);
-            expect(wrapper.state("message")).toContain("Request failed with status code 500");
-            done();
-        }, 50);
+            expect(wrapper.find("Alert").length).toBe(1);
+            expect(wrapper.find("Alert").text()).toContain("500");
+        }, 1);
     });
 
 });

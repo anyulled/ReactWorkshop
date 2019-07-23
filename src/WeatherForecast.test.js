@@ -201,7 +201,6 @@ describe("weather forecast", () => {
     const mock = new MockAdapter(axios);
     let wrapper;
     beforeAll(() => {
-        event = {target: {name: "", value: 360630}};
         configure({adapter: new Adapter()});
         mock
             .onGet("http://api.openweathermap.org/data/2.5/forecast/daily")
@@ -212,6 +211,11 @@ describe("weather forecast", () => {
         act(() => {
             wrapper = shallow(<WeatherForecast modifyCity={modifyCity}/>);
         });
+        expect(wrapper.find("LoadingComponent").length).toBe(1);
         expect(wrapper.find("Grid").length).toBe(1);
+        expect(wrapper.find("LocationButtonGroup").length).toBe(1);
+        expect(wrapper.find("CityForm").length).toBe(1);
+        expect(wrapper.find("ForecastCardList").length).toBe(1);
+        console.log(wrapper.debug());
     });
 });

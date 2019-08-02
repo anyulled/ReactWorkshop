@@ -23,7 +23,7 @@ describe("Weather Forecast", () => {
         const nextWeek = today.add(6, "days");
         cy.get("#citySelect").select("London");
         cy.get("small").contains("London");
-        cy.contains(nextWeek.format("M/DD/YYYY"));
+        cy.contains(nextWeek.format("M/D/YYYY"));
         cy.get("#forecast-list").find(".col-sm-6");
         cy.get("#forecast-list").find(".col-sm-3").then($column => $column.length === 6);
         cy.get("#citySelect").select("Barcelona");

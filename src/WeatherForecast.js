@@ -23,7 +23,7 @@ const WeatherForecast = ({modifyCity}) => {
         } else {
             loadCityById(selectedCityId);
         }
-    }, [selectedCityId]); //eslint-disable-line react-hooks/exhaustive-deps
+    }, [selectedCityId, loading, message, error, city, forecast]); //eslint-disable-line react-hooks/exhaustive-deps
 
     const clearData = event => {
         event.preventDefault();

@@ -226,17 +226,15 @@ describe("weather forecast", () => {
         });
         expect(wrapper.find("ForecastCardList").props("forecast").forecast.length).toBe(0);
     });
-    it("should load the data for the current location when pressed the respective button", () => {
+    it("should load the data for the current location when pressed the respective button", async () => {
         act(() => {
             wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
         });
         act(() => {
             wrapper.find("Button").at(1).simulate("click");
         });
-        // console.log("==> DEBUG", wrapper.debug());
-        // expect(wrapper.find("ForecastCardList").props("forecast").forecast.length).toBe(7);
-        setTimeout(() => {
-            expect(wrapper.find("ForecastCardList").props("forecast").forecast.length).toBe(7);
-        }, 100);
+        let forecastCardListLength = await wrapper.find("ForecastCardList").props("forecast").forecast.length;
+        console.log("Forecast card list", forecastCardListLength);
+        expect(forecastCardListLength).toBe(7);
     });
 });

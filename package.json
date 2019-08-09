@@ -18,10 +18,9 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "prop-types": "latest",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^16.8.6",
-    "wait-on": "^3.3.0"
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@testing-library/react": "^8.0.6",
@@ -31,7 +30,7 @@
     "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.2",
     "coveralls": "^3.0.5",
-    "cypress": "^3.4.0",
+    "cypress": "^3.4.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.16.0",

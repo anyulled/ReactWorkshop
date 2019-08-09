@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {Alert, Col, Grid, Row} from "react-bootstrap";
@@ -11,82 +11,35 @@ import {WEATHER_API} from "./constants";
 const WeatherForecast = ({modifyCity}) => {
 
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [position, setPosition] = useState(null);
+    const [message, setMessage] = useState(null);
     const [error, setError] = useState(false);
-    const [selectedCityId, setSelectedCityId] = useState("");
-    const [city, setCity] = useState("");
+    const [selectedCityId, setSelectedCityId] = useState(null);
+    const [city, setCity] = useState(null);
     const [forecast, setForecast] = useState([]);
-
-    useEffect(() => {
-        if (selectedCityId == null || selectedCityId === "") {
-            currentLocationLoad();
-        } else {
-            loadCityById(selectedCityId);
-        }
-    }, [selectedCityId, loading, message, error, city, forecast]); //eslint-disable-line react-hooks/exhaustive-deps
 
     const clearData = event => {
         event.preventDefault();
         setLoading(false);
-        setMessage("");
+        setMessage(null);
         setError(false);
-        setForecast([]);
-        setCity("");
-        setSelectedCityId("");
-    };
-
-    const currentLocationLoad = () => {
-        setLoading(true);
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                loadCityByCoordinates(position.coords.latitude, position.coords.longitude);
-                setSelectedCityId("");
-                setLoading(false);
-            }, error => {
-                setLoading(false);
-                setError(true);
-                setMessage(error.message);
-            });
-        } else {
-            setError(true);
-            setMessage("Geo location disabled");
-        }
+        setForecast(null);
+        setCity(null);
+        setPosition(null);
+        setSelectedCityId(null);
     };
 
     const onChangeHandler = event => {
-        const {target: {value: city}} = event;
-        if (city !== "") {
-            setSelectedCityId(city);
-            loadCityById(city);
+        const {target: {value: cityEvent}} = event;
+        if (cityEvent !== "") {
+            setSelectedCityId(cityEvent);
+            setPosition(null);
         }
     };
 
-    const loadCityByCoordinates = (latitude, longitude) => {
-        axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
-            params:
-                {
-                    units: "metric",
-                    lang: "es",
-                    lat: latitude,
-                    lon: longitude,
-                    appid: WEATHER_API
-                }
-        })
-            .then(response => {
-                modifyCity(response.data.city.name);
-                processResponse(response);
-            })
-            .catch(error => {
-                setLoading(false);
-                setError(true);
-                setMessage(error.message);
-            });
-    };
-
     const processResponse = response => {
-        setLoading(false);
         setCity(response.data.city.name);
-        setForecast(response.data.list.map(weather => (
+        return response.data.list.map(weather => (
             {
                 icon: weather.weather[0].icon,
                 date: weather.dt,
@@ -94,26 +47,62 @@ const WeatherForecast = ({modifyCity}) => {
                 minTemp: weather.temp.min,
                 maxTemp: weather.temp.max,
                 humidity: weather.humidity
-            }))
-        );
+            }));
     };
 
-    const loadCityById = cityId => {
-        axios("http://api.openweathermap.org/data/2.5/forecast/daily", {
-            params: {
-                units: "metric",
-                lang: "es",
-                id: cityId,
-                appid: WEATHER_API
-            }
-        }).then(response => {
-            modifyCity(response.data.city.name);
-            processResponse(response);
-        }).catch(error => {
+    const currentLocationLoad = useCallback(() => {
+        setLoading(true);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(geoPosition => {
+                setPosition(geoPosition);
+                setSelectedCityId(null);
+                setLoading(false);
+            }, e => {
+                setLoading(false);
+                setError(true);
+                setMessage(e.message);
+            });
+        } else {
             setError(true);
-            setMessage(error.message);
-        });
-    };
+            setMessage("Geo location disabled");
+        }
+    }, []);
+
+    useEffect(() => {
+        const loadCityById = async () => {
+            if (selectedCityId != null) {
+                const response = await axios("http://api.openweathermap.org/data/2.5/forecast/daily",
+                    {params: {units: "metric", lang: "es", id: selectedCityId, appid: WEATHER_API}}
+                );
+                modifyCity(city);
+                setLoading(false);
+                setForecast(processResponse(response));
+            }
+        };
+        loadCityById();
+    }, [selectedCityId, modifyCity, city]);
+
+    useEffect(() => {
+        const loadCityByCoordinates = async () => {
+            if (position != null) {
+                const response = await axios("http://api.openweathermap.org/data/2.5/forecast/daily",
+                    {
+                        params:
+                            {
+                                units: "metric",
+                                lang: "es",
+                                lat: position.coords.latitude,
+                                lon: position.coords.longitude,
+                                appid: WEATHER_API
+                            }
+                    });
+                setLoading(false);
+                modifyCity(city);
+                setForecast(processResponse(response));
+            }
+        };
+        loadCityByCoordinates();
+    }, [position, modifyCity, city]);
 
     return <div>
         <LoadingComponent city={city} loading={loading}/>

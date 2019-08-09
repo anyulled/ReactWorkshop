@@ -6,6 +6,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import Adapter from "enzyme-adapter-react-16";
 
+jest.useFakeTimers();
 describe("weather forecast", () => {
     const serviceResponse = {
         "city": {
@@ -226,15 +227,21 @@ describe("weather forecast", () => {
         });
         expect(wrapper.find("ForecastCardList").props("forecast").forecast.length).toBe(0);
     });
-    it("should load the data for the current location when pressed the respective button", async () => {
+    it("should load the data for the current location when pressed the respective button", () => {
         act(() => {
             wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
         });
         act(() => {
             wrapper.find("Button").at(1).simulate("click");
+            jest.advanceTimersByTime(1000);
         });
-        let forecastCardListLength = await wrapper.find("ForecastCardList").props("forecast").forecast.length;
-        console.log("Forecast card list", forecastCardListLength);
+        const forecastCardListLength = wrapper.find("ForecastCardList").props("forecast").forecast.length;
+        //console.log("Forecast card list", forecastCardListLength);
         expect(forecastCardListLength).toBe(7);
+    });
+    it("should display selected city forecast", () => {
+        act(() => {
+            wrapper = mount(<WeatherForecast modifyCity={modifyCity}/>);
+        });
     });
 });

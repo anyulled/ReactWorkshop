@@ -8,5 +8,6 @@
   },
   "issueSettings": {
     "minSeverityLevel": "LOW"
-  }
+  },
+  "automerge":true
 }

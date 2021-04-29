@@ -1,0 +1,43 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: eslint
+    versions:
+    - 7.20.0
+    - 7.21.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: jsdom
+    versions:
+    - 16.5.1
+    - 16.5.2
+    - 16.5.3
+  - dependency-name: y18n
+    versions:
+    - 4.0.2
+  - dependency-name: sinon
+    versions:
+    - 10.0.0
+  - dependency-name: react-test-renderer
+    versions:
+    - 17.0.2
+  - dependency-name: react-dom
+    versions:
+    - 17.0.2
+  - dependency-name: react
+    versions:
+    - 17.0.2
+  - dependency-name: react-bootstrap
+    versions:
+    - 1.5.0
+    - 1.5.1
+  - dependency-name: react-scripts
+    versions:
+    - 4.0.2

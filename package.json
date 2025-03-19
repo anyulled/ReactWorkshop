@@ -23,7 +23,7 @@
     "jsdom": "latest",
     "react-scripts": "5.0.1",
     "react-test-renderer": "18.3.0",
-    "sinon": "17.0.1"
+    "sinon": "19.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
